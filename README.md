@@ -1,6 +1,11 @@
-frontend-nanodegree-arcade-game
+FroggerClone: a clone of the frogger game
 ===============================
 
-Students should use this rubric: https://www.udacity.com/course/viewer#!/c-ud015/l-3072058665/m-3072588797
+Try to get accross the street, or get run over.
 
-for self-checking their submission.
+resources for game dev:
+
+Principles of Object Oriented JavaScript - Nicholas Zakas
+https://developer.mozilla.org/en-US/docs/Web/JavaScript
+https://leanpub.com/javascript-allonge/
+http://www.w3schools.com/js

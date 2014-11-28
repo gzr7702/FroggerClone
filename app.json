@@ -1,0 +1,7 @@
+{
+  "name": "FroggerClone",
+  "description": "A clone of the popular frogger game using Node.js and Express 4",
+  "repository": "https://github.com/gzr7702/FroggerClone",
+  "logo": "http://node-js-sample.herokuapp.com/node.svg",
+  "keywords": ["node", "express", "static"]
+}
