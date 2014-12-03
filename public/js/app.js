@@ -1,5 +1,8 @@
 "use strict";
 
+var enemySpeed = [50, 100, 150, 500, 1000];
+var enemyY = [60, 143, 225];
+
 // Enemies our player must avoid
 var Enemy = function () {
     // Variables applied to each of our instances go here,
@@ -8,8 +11,10 @@ var Enemy = function () {
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
     this.sprite = 'images/enemy-bug.png';
-    this.x = 50;
-    this.y = 50;
+    this.x = 0;
+    this.y = enemyY[Math.floor(Math.random() * 3)];
+    this.speed = enemySpeed[Math.floor(Math.random() * 5)];
+    //this.speed = 4;
 };
 
 // Update the enemy's position, required method for game
@@ -18,10 +23,12 @@ Enemy.prototype.update = function (dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
-    this.x = this.x * dt;
-    this.y = this.y * dt;
+    if (this.x >= 505) {
+        this.x = 0;
+    } else {
+        this.x = this.x + (this.speed * dt);
+    }
     this.render();
-    //console.log(this.y);
 };
 
 // Draw the enemy on the screen, required method for game
@@ -35,6 +42,8 @@ Enemy.prototype.render = function () {
 
 var Player = function (name) {
     this.sprite = 'images/char-boy.png';
+    this.x = 300;
+    this.y = 325;
 };
 
 Player.prototype.update = function () {
