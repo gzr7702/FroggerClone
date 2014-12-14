@@ -2,14 +2,9 @@
 
 var enemySpeed = [25, 50, 75, 250, 300];
 var enemyY = [60, 143, 225];
-/*
-var maxX = 505 - 60;
-var maxY = 606 - 30;
-var minX = -1;
-var minY = 0;
-*/
 
-//console.log(ctx)
+var canvasHeight = ctx.canvas.height;
+var canvasWidth = ctx.canvas.width;
 
 // Enemies our player must avoid
 var Enemy = function () {
@@ -25,7 +20,7 @@ var Enemy = function () {
     //assign random speed
     this.speed = enemySpeed[Math.floor(Math.random() * 5)];
     
-    this.maxX = 505; //need to use ctx.width here, but can't get ctx
+    this.maxX = canvasWidth;
     this.minX = -25;
 };
 
@@ -55,8 +50,8 @@ var Player = function (name) {
     this.sprite = 'images/char-boy.png';
     this.x = 300;
     this.y = 325;
-    this.maxX = 505 - 60;
-    this.maxY = 606 - 30;
+    this.maxX = canvasWidth - 100;
+    this.maxY = canvasHeight - 200;
     this.minX = -1;
     this.minY = 0;
 };
