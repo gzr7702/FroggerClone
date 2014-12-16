@@ -6,6 +6,7 @@ var enemyY = [60, 143, 225];
 var canvasHeight = ctx.canvas.height;
 var canvasWidth = ctx.canvas.width;
 
+
 var Enemy = function () {
     this.sprite = 'images/enemy-bug.png';
     this.x = 0;
@@ -16,6 +17,12 @@ var Enemy = function () {
     
     this.maxX = canvasWidth;
     this.minX = -25;
+    this.border = {
+        'left': this.x - 50,
+        'right': this.x + 50,
+        'top': this.y - 85,
+        'bottom': this.y + 85,
+    }
 };
 
 Enemy.prototype.update = function (dt) {
@@ -27,9 +34,6 @@ Enemy.prototype.update = function (dt) {
         this.x = 0;
     } else {
         this.x = this.x + (this.speed * dt);
-    }
-    if (ctx.isPointInPath(this.x, this.y)) {
-        console.log("enemy collision detected!");
     }
 };
 
@@ -46,12 +50,19 @@ var Player = function (name) {
     this.maxY = canvasHeight - 300;
     this.minX = 0;
     this.minY = 0;
+    this.border = {
+        'left': this.x - 50,
+        'right': this.x + 50,
+        'top': this.y - 85,
+        'bottom': this.y + 85,
+    }
 };
 
 Player.prototype.update = function (dt) {
     //this.x = this.x + (this.speed * dt);
-    if (ctx.isPointInPath(this.x, this.y)) {
-        console.log("player collision detected!");
+    if (collisionDetected()) {
+        this.x = 300;
+        this.y = 325;
     }
 };
 
@@ -111,3 +122,20 @@ document.addEventListener('keydown', function(e) {
 
     player.handleInput(allowedKeys[e.keyCode]);
 });
+
+function collisionDetected (player, eenemy, border) {
+    //detect collision
+    //border is relation of player to enemy: top or left
+    switch (border) {
+        case 'left':
+            if (player.border.left <= enemy.border.right) {
+                console.log("collision on player left, enemy right")
+            }
+        case 'top':
+            if (player.border.left <= enemy.border.right) {
+                console.log("collision on player left, enemy right")
+            }
+    }
+
+}
+
