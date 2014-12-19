@@ -12,17 +12,13 @@ var Enemy = function () {
     this.x = 0;
     //assign random row
     this.y = enemyY[Math.floor(Math.random() * 3)];
+    this.width = 101;
+    this.height = 171;
     //assign random speed
     this.speed = enemySpeed[Math.floor(Math.random() * 5)];
     
     this.maxX = canvasWidth;
     this.minX = -25;
-    this.border = {
-        'left': this.x - 50,
-        'right': this.x + 50,
-        'top': this.y - 85,
-        'bottom': this.y + 85,
-    }
 };
 
 Enemy.prototype.update = function (dt) {
@@ -46,24 +42,16 @@ var Player = function (name) {
     this.sprite = 'images/char-boy.png';
     this.x = 300;
     this.y = 325;
+    this.width = 101;
+    this.height = 171;
     this.maxX = canvasWidth - 125;
     this.maxY = canvasHeight - 300;
-    this.minX = 0;
+    this.minX = 100;
     this.minY = 0;
-    this.border = {
-        'left': this.x - 50,
-        'right': this.x + 50,
-        'top': this.y - 85,
-        'bottom': this.y + 85,
-    }
 };
 
 Player.prototype.update = function (dt) {
     //this.x = this.x + (this.speed * dt);
-    if (collisionDetected()) {
-        this.x = 300;
-        this.y = 325;
-    }
 };
 
 Player.prototype.render = function () {
@@ -72,36 +60,57 @@ Player.prototype.render = function () {
 
 Player.prototype.handleInput = function (keyCode) {
     console.log(this.x + ' ' + this.y)
-    var moveInterval = 25;
+    var moveY = 85;
+    var moveX = 98;
     switch (keyCode) {
         case 'left':
             if (this.x  <= this.minX) {
                 break;
             }
-            this.x -= moveInterval;
+            this.x -= moveX;
             break;
         case 'right':
             if (this.x >= this.maxX) {
                 break;
             }
-            this.x += moveInterval;
+            this.x += moveX;
             break;
         case 'up':
             if (this.y <= this.minY) {
                 break;
             }
-            this.y -= moveInterval;
+            this.y -= moveY;
             break;
         case 'down':
             if (this.y >= this.maxY) {
                 break;
             }
-            this.y += moveInterval;
+            this.y += moveY;
             break;
         default:
             break;
     }
 };
+
+Player.prototype.checkCollisions = function() {
+    //console.log('this ' + this);
+    if (this.y > 50 || this.y > 225) {
+        var self = this;
+        allEnemies.forEach(function(enemy) {
+            // is the bug on the same row as the player?
+            //if (enemy.y === self.y) {
+                // is the bug on the player?
+                 if (player.x < enemy.x + enemy.width &&
+                       player.x + player.width > enemy.x &&
+                       player.y < enemy.y + enemy.height &&
+                       player.height + player.y > enemy.y) {
+                        console.log("collision detected!")
+                        //self.reset();
+                }
+            //}
+        });
+    }
+}
     
 var player = new Player();
     
@@ -123,19 +132,5 @@ document.addEventListener('keydown', function(e) {
     player.handleInput(allowedKeys[e.keyCode]);
 });
 
-function collisionDetected (player, eenemy, border) {
-    //detect collision
-    //border is relation of player to enemy: top or left
-    switch (border) {
-        case 'left':
-            if (player.border.left <= enemy.border.right) {
-                console.log("collision on player left, enemy right")
-            }
-        case 'top':
-            if (player.border.left <= enemy.border.right) {
-                console.log("collision on player left, enemy right")
-            }
-    }
-
-}
+   
 
