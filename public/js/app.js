@@ -1,7 +1,8 @@
 "use strict";
 
 var enemySpeed = [25, 50, 75, 150, 250];
-var enemyY = [60, 143, 225];
+//var enemyY = [60, 143, 225];
+var enemyY = [70, 155, 240];
 
 var canvasHeight = ctx.canvas.height;
 var canvasWidth = ctx.canvas.width;
@@ -52,6 +53,7 @@ var Player = function (name) {
 
 Player.prototype.update = function (dt) {
     //this.x = this.x + (this.speed * dt);
+    this.checkCollisions();
 };
 
 Player.prototype.render = function () {
@@ -97,19 +99,25 @@ Player.prototype.checkCollisions = function() {
     if (this.y > 50 || this.y > 225) {
         var self = this;
         allEnemies.forEach(function(enemy) {
-            // is the bug on the same row as the player?
-            //if (enemy.y === self.y) {
+            // check if bug is on the same row as the player
+            // using y values 70, 155, 240
+            if (enemy.y === self.y) {
                 // is the bug on the player?
-                 if (player.x < enemy.x + enemy.width &&
-                       player.x + player.width > enemy.x &&
-                       player.y < enemy.y + enemy.height &&
-                       player.height + player.y > enemy.y) {
-                        console.log("collision detected!")
-                        //self.reset();
+                 if (self.x < enemy.x + enemy.width &&
+                       self.x + self.width > enemy.x &&
+                       self.y < enemy.y + enemy.height &&
+                       self.height + self.y > enemy.y) {
+                        //console.log("collision detected!")
+                        self.reset();
                 }
-            //}
+            }
         });
     }
+}
+
+Player.prototype.reset = function () {
+    this.x = 300;
+    this.y = 325;
 }
     
 var player = new Player();
@@ -131,6 +139,3 @@ document.addEventListener('keydown', function(e) {
 
     player.handleInput(allowedKeys[e.keyCode]);
 });
-
-   
-
