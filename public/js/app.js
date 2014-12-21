@@ -6,6 +6,7 @@ var enemyY = [70, 155, 240];
 
 var canvasHeight = ctx.canvas.height;
 var canvasWidth = ctx.canvas.width;
+var gameScore = 0;
 
 
 var Enemy = function () {
@@ -13,13 +14,13 @@ var Enemy = function () {
     this.x = 0;
     //assign random row
     this.y = enemyY[Math.floor(Math.random() * 3)];
-    this.width = 101;
-    this.height = 171;
+    this.width = 96;
+    this.height = 67;
     //assign random speed
     this.speed = enemySpeed[Math.floor(Math.random() * 5)];
     
     this.maxX = canvasWidth;
-    this.minX = -25;
+    //this.minX = -25;
 };
 
 Enemy.prototype.update = function (dt) {
@@ -43,8 +44,8 @@ var Player = function (name) {
     this.sprite = 'images/char-boy.png';
     this.x = 300;
     this.y = 325;
-    this.width = 101;
-    this.height = 171;
+    this.width = 66;
+    this.height = 77;
     this.maxX = canvasWidth - 125;
     this.maxY = canvasHeight - 300;
     this.minX = 100;
@@ -94,13 +95,15 @@ Player.prototype.handleInput = function (keyCode) {
     }
 };
 
-Player.prototype.checkCollisions = function() {
-    //console.log('this ' + this);
-    if (this.y > 50 || this.y > 225) {
+Player.prototype.checkCollisions = function () {
+    if (this.y < -15) {
+        // increment score and reset if the player is on the water
+        gameScore++;
+        this.reset();
+    } else if (this.y > 50 || this.y < 225) {
         var self = this;
         allEnemies.forEach(function(enemy) {
             // check if bug is on the same row as the player
-            // using y values 70, 155, 240
             if (enemy.y === self.y) {
                 // is the bug on the player?
                  if (self.x < enemy.x + enemy.width &&
@@ -116,7 +119,7 @@ Player.prototype.checkCollisions = function() {
 }
 
 Player.prototype.reset = function () {
-    this.x = 300;
+    //this.x = 300;
     this.y = 325;
 }
     
