@@ -1,137 +1,18 @@
 "use strict";
 
-var enemySpeed = [25, 50, 75, 150, 250];
-//var enemyY = [60, 143, 225];
-var enemyY = [70, 155, 240];
-
 var canvasHeight = ctx.canvas.height;
 var canvasWidth = ctx.canvas.width;
-var gameScore = 0;
 
-
-var Enemy = function () {
-    this.sprite = 'images/enemy-bug.png';
-    this.x = 0;
-    //assign random row
-    this.y = enemyY[Math.floor(Math.random() * 3)];
-    this.width = 96;
-    this.height = 67;
-    //assign random speed
-    this.speed = enemySpeed[Math.floor(Math.random() * 5)];
-    
-    this.maxX = canvasWidth;
-    //this.minX = -25;
-};
-
-Enemy.prototype.update = function (dt) {
-    //multiply any movement by the dt parameter (timedelta) which will
-    //ensure the game runs at the same speed for all computers
-
-    //check for x border and restart enemy at the beginning
-    if (this.x >= this.maxX) {
-        this.x = 0;
-    } else {
-        this.x = this.x + (this.speed * dt);
-    }
-};
-
-Enemy.prototype.render = function () {
-    // Draw the enemy on the screen
-    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-};
-
-var Player = function (name) {
-    this.sprite = 'images/char-boy.png';
-    this.x = 300;
-    this.y = 325;
-    this.width = 66;
-    this.height = 77;
-    this.maxX = canvasWidth - 125;
-    this.maxY = canvasHeight - 300;
-    this.minX = 100;
-    this.minY = 0;
-};
-
-Player.prototype.update = function (dt) {
-    //this.x = this.x + (this.speed * dt);
-    this.checkCollisions();
-};
-
-Player.prototype.render = function () {
-    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-};
-
-Player.prototype.handleInput = function (keyCode) {
-    console.log(this.x + ' ' + this.y)
-    var moveY = 85;
-    var moveX = 98;
-    switch (keyCode) {
-        case 'left':
-            if (this.x  <= this.minX) {
-                break;
-            }
-            this.x -= moveX;
-            break;
-        case 'right':
-            if (this.x >= this.maxX) {
-                break;
-            }
-            this.x += moveX;
-            break;
-        case 'up':
-            if (this.y <= this.minY) {
-                break;
-            }
-            this.y -= moveY;
-            break;
-        case 'down':
-            if (this.y >= this.maxY) {
-                break;
-            }
-            this.y += moveY;
-            break;
-        default:
-            break;
-    }
-};
-
-Player.prototype.checkCollisions = function () {
-    if (this.y < -15) {
-        // increment score and reset if the player is on the water
-        gameScore++;
-        this.reset();
-    } else if (this.y > 50 || this.y < 225) {
-        var self = this;
-        allEnemies.forEach(function(enemy) {
-            // check if bug is on the same row as the player
-            if (enemy.y === self.y) {
-                // is the bug on the player?
-                 if (self.x < enemy.x + enemy.width &&
-                       self.x + self.width > enemy.x &&
-                       self.y < enemy.y + enemy.height &&
-                       self.height + self.y > enemy.y) {
-                        //console.log("collision detected!")
-                        self.reset();
-                }
-            }
-        });
-    }
-}
-
-Player.prototype.reset = function () {
-    //this.x = 300;
-    this.y = 325;
-}
-    
+var game = new Game();
 var player = new Player();
-    
-//create enemies
+// create an array of many enemies
 var numEnemies = 10;
 var allEnemies = [];
 for (var i=0; i < numEnemies; i++) {
     allEnemies.push(new Enemy());
 }
 
+//handle user input
 document.addEventListener('keydown', function(e) {
     var allowedKeys = {
         37: 'left',
@@ -142,3 +23,5 @@ document.addEventListener('keydown', function(e) {
 
     player.handleInput(allowedKeys[e.keyCode]);
 });
+
+game.update();
