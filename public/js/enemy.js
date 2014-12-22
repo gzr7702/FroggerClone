@@ -16,7 +16,7 @@ var Enemy = function () {
     //assign random speed
     this.speed = speed[Math.floor(Math.random() * 5)];
     
-    this.maxX = canvasWidth;
+    this.maxX = ctx.canvas.width;
     //this.minX = -25;
 };
 

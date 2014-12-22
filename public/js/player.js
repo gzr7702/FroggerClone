@@ -5,12 +5,13 @@
 
 var Player = function (name) {
     this.sprite = 'images/char-boy.png';
+    this.score = 0;
     this.x = 300;
     this.y = 325;
     this.width = 66;
     this.height = 77;
-    this.maxX = canvasWidth - 125;
-    this.maxY = canvasHeight - 300;
+    this.maxX = ctx.canvas.width - 125;
+    this.maxY = ctx.canvas.height - 300;
     this.minX = 100;
     this.minY = -100;
 };
@@ -61,8 +62,8 @@ Player.prototype.handleInput = function (keyCode) {
 Player.prototype.checkCollisions = function () {
     if (this.y === this.minY) {
         // increment score and reset if the player is on the water
-        game.score++;
-        console.log(game.score);
+        this.score++;
+        console.log(this.score);
         this.reset();
     } else if (this.y > 50 || this.y < 225) {
         var self = this;

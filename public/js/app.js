@@ -1,9 +1,6 @@
 "use strict";
 
-var canvasHeight = ctx.canvas.height;
-var canvasWidth = ctx.canvas.width;
-
-var game = new Game();
+// Instantiate objects:
 var player = new Player();
 // create an array of many enemies
 var numEnemies = 10;
@@ -24,4 +21,4 @@ document.addEventListener('keydown', function(e) {
     player.handleInput(allowedKeys[e.keyCode]);
 });
 
-game.update();
+document.write('<h1>Score: ' + player.score + '</h1>');
