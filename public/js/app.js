@@ -20,5 +20,3 @@ document.addEventListener('keydown', function(e) {
 
     player.handleInput(allowedKeys[e.keyCode]);
 });
-
-document.write('<h1>Score: ' + player.score + '</h1>');

@@ -81,7 +81,6 @@ var Engine = (function(global) {
     function update(dt) {
         updateEntities(dt);
         //player.checkCollisions();
-        //document.write('<h1>Score: ' + player.score + '</h1>');
     }
 
     /* This is called by the update function  and loops through all of the
@@ -96,6 +95,10 @@ var Engine = (function(global) {
             enemy.update(dt);
         });
         player.update();
+    }
+
+    function updateScore() {
+        document.getElementById("score").innerHTML = player.score || 1;
     }
 
     /* This function initially draws the "game level", it will then call
@@ -137,7 +140,7 @@ var Engine = (function(global) {
             }
         }
 
-
+        updateScore();
         renderEntities();
     }
 
