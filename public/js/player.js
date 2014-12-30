@@ -60,10 +60,9 @@ Player.prototype.handleInput = function (keyCode) {
 };
 
 Player.prototype.checkCollisions = function () {
-    if (this.y === this.minY) {
+    if (this.y <= this.minY) {
         // increment score and reset if the player is on the water
         this.score++;
-        console.log(this.score);
         this.reset();
     } else if (this.y > 50 || this.y < 225) {
         var self = this;
@@ -75,7 +74,6 @@ Player.prototype.checkCollisions = function () {
                        self.x + self.width > enemy.x &&
                        self.y < enemy.y + enemy.height &&
                        self.height + self.y > enemy.y) {
-                        //console.log("collision detected!")
                         self.reset();
                 }
             }

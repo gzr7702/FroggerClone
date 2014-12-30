@@ -11,7 +11,7 @@ var Enemy = function () {
     this.x = 0;
     //assign random row
     this.y = yPoint[Math.floor(Math.random() * 3)];
-    this.width = 96;
+    this.width = 76;
     this.height = 67;
     //assign random speed
     this.speed = speed[Math.floor(Math.random() * 5)];
