@@ -57,6 +57,7 @@ var Engine = (function(global) {
          * function again as soon as the browser is able to draw another frame.
          */
         win.requestAnimationFrame(main);
+
     };
 
     /* This function does some initial setup that should only occur once,
@@ -64,9 +65,9 @@ var Engine = (function(global) {
      * game loop.
      */
     function init() {
-        reset();
         lastTime = Date.now();
         main();
+        win.setInterval(reset, 10000);
     }
 
     /* This function is called by main (our game loop) and itself calls all
@@ -80,7 +81,8 @@ var Engine = (function(global) {
      */
     function update(dt) {
         updateEntities(dt);
-        //player.checkCollisions();
+        //update score:
+        document.getElementById("score").innerHTML = player.score || 0;
     }
 
     /* This is called by the update function  and loops through all of the
@@ -95,10 +97,6 @@ var Engine = (function(global) {
             enemy.update(dt);
         });
         player.update();
-    }
-
-    function updateScore() {
-        document.getElementById("score").innerHTML = player.score || 1;
     }
 
     /* This function initially draws the "game level", it will then call
@@ -139,8 +137,6 @@ var Engine = (function(global) {
                 ctx.drawImage(Resources.get(rowImages[row]), col * 101, row * 83);
             }
         }
-
-        updateScore();
         renderEntities();
     }
 
@@ -164,7 +160,8 @@ var Engine = (function(global) {
      * those sorts of things. It's only called once by the init() method.
      */
     function reset() {
-        // noop
+        console.log("in reset");
+        player.score = 0;
     }
 
     /* Go ahead and load all of the images we know we're going to need to

@@ -20,7 +20,7 @@ http://www.w3schools.com/js
 
 todo:
 
-- make water reset happen when player is completely on the water.
+- add timer
 - make enemies run more far apart
 
 - Add functionality to keep track of levels/games/etc
