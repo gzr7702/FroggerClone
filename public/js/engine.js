@@ -155,14 +155,28 @@ var Engine = (function(global) {
         player.render();
     }
 
-    /* This function does nothing but it could have been a good place to
-     * handle game reset states - maybe a new game menu or a game over screen
-     * those sorts of things. It's only called once by the init() method.
+    /* Add high score and initials to the DB
+    */
+    function addHighScore() {
+        var initials = win.prompt("You are one of the top ten scorers! Please enter your initiials.");
+        //this is where we will write to the db:
+        console.log(initials + ' ' + player.score);
+    }
+
+    /* Reset game after allotted time. Checks for high score.
      */
     function reset() {
-        console.log("in reset");
+        //stub var until we get the DB running
+        var topTenScore = 3;
+
+        if (player.score > topTenScore) {
+            addHighScore();
+        } else {
+            win.confirm("Game Over!");
+        }
         player.score = 0;
     }
+
 
     /* Go ahead and load all of the images we know we're going to need to
      * draw our game level. Then set init as the callback method, so that when
