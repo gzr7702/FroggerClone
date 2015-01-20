@@ -1,3 +1,7 @@
 //this is where the db will be
-//
-//mongoose.connect();
+
+/*
+module.exports = {
+	url = 'mongodb://localhost/udacity/FroggerClone';
+}
+*/

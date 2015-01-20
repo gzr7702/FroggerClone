@@ -3,7 +3,7 @@
 * it creates one player that is used for the entire game.
 */
 
-var Player = function (name) {
+var Player = function () {
     this.sprite = 'images/char-boy.png';
     this.score = 0;
     this.x = 300;

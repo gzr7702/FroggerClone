@@ -20,10 +20,7 @@ http://www.w3schools.com/js
 
 todo:
 
-- add timer
 - make enemies run more far apart
-
-- Add functionality to keep track of levels/games/etc
-- add splash screen
-- add require.js
 - add DB to keep points
+- add splash screens instead of dialog boxes
+- add require.js

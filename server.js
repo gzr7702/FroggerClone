@@ -3,8 +3,10 @@ var express = require('express');
 var app = express();
 var port = process.env.PORT || 5000;
 //hooks for mongodb
-//var mongoose = require('mongoose');
-//var database = require('./config/database');
+/*
+var mongoose = require('mongoose');
+var database = require('./config/database');
+*/
 
 //config--------------------------------------------------------------
 //mongoose.connect(database.url);

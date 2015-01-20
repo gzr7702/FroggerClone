@@ -3,8 +3,11 @@
 /*
 var mongoose = require('mongoose');
 
-module.exports = mongoos.models('Scores', {
+module.exports = mongoose.models('Scores', {
 	initials: String,
 	score: Integer
 });
 */
+
+var Score = {
+}

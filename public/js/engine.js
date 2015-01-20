@@ -25,9 +25,25 @@ var Engine = (function(global) {
         ctx = canvas.getContext('2d'),
         lastTime;
 
+    // Temporary high scores until we get the DB hooked up.
+    var highScores = [
+        {initials: 'RDG', score: 23},
+        {initials: 'KLM', score: 5},
+        {initials: 'KTM', score: 16},
+        {initials: 'FIL', score: 20},
+    ];
+
     canvas.width = 505;
     canvas.height = 606;
-    doc.body.appendChild(canvas);
+
+    //original canvas:
+    //doc.body.appendChild(canvas);
+
+    //trying to place canvas ------------------------------------------------------
+    var node = doc.getElementById("canvas");
+    console.log(node);
+    node.insertBefore(node, canvas);
+    //place canvas ------------------------------------------------------
 
     /* This function serves as the kickoff point for the game loop itself
      * and handles properly calling the update and render methods.
@@ -155,15 +171,26 @@ var Engine = (function(global) {
         player.render();
     }
 
+    /*Display the list of high scores w/initials
+    */
+    function displayScores() {
+        var scoreList = '';
+        for (var i = 0; i < highScores.length; i++) {
+            scoreList += highScores[i].initials + ' ' + highScores[i].score + '\n';
+        }
+        win.alert(scoreList);
+    }
+
     /* Add high score and initials to the DB
     */
     function addHighScore() {
-        var initials = win.prompt("You are one of the top ten scorers! Please enter your initiials.");
-        //this is where we will write to the db:
-        console.log(initials + ' ' + player.score);
+        var inits = win.prompt("You are one of the top ten scorers! Please enter your initiials.");
+        highScores.push({initials: inits, score: player.score });
+        displayScores();
     }
 
-    /* Reset game after allotted time. Checks for high score.
+    /* Reset game after allotted time. Checks for high score and asks for data if
+    * there is a new high score.
      */
     function reset() {
         //stub var until we get the DB running

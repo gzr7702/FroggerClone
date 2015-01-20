@@ -1,16 +1,51 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Frogger</title>
+    <title>Bugme</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+
+
+<input type='button' value='grey box!' id='button'/>
+<div id='box'>
+	Click to return
+</div>
+
+<div id='canvas'>
+
+
+
     <!-- <script src="js/game.js"></script> -->
+    <!-- <script src="js/scripts.js"></script> -->
     <script src="js/resources.js"></script>
+    <script src="js/scores.js"></script>
     <script src="js/engine.js"></script>
     <script src="js/player.js"></script>
     <script src="js/enemy.js"></script>
     <script src="js/app.js"></script>
+    <script src="js/lib/jquery.min.js"></script>
+
+    <script type="text/javascript">
+	    $(function(){
+			var pop = function(){
+				console.log("in pop()");
+				$('#screen').css({	"display": "block", opacity: 0.7, "width":$(document).width(),"height":$(document).height()});
+				$('#box').css({"display": "block"}).click(function(){$(this).css("display", "none");$('#screen').css("display", "none")});
+			}
+
+			$('#button').click(pop);
+
+			$(window).resize(function(){
+				$('#box').css("display") == 'block'?pop.call($('#button')):"";
+			});
+		});
+	</script>
+
     <h1>Score<div id="score"></div></h1>
+<div id='screen'>
+</div>
+</div>
+
 </body>
 </html>
