@@ -25,25 +25,11 @@ var Engine = (function(global) {
         ctx = canvas.getContext('2d'),
         lastTime;
 
-    // Temporary high scores until we get the DB hooked up.
-    var highScores = [
-        {initials: 'RDG', score: 23},
-        {initials: 'KLM', score: 5},
-        {initials: 'KTM', score: 16},
-        {initials: 'FIL', score: 20},
-    ];
 
     canvas.width = 505;
     canvas.height = 606;
 
-    //original canvas:
-    //doc.body.appendChild(canvas);
-
-    //trying to place canvas ------------------------------------------------------
-    var node = doc.getElementById("canvas");
-    console.log(node);
-    node.insertBefore(node, canvas);
-    //place canvas ------------------------------------------------------
+    doc.body.appendChild(canvas);
 
     /* This function serves as the kickoff point for the game loop itself
      * and handles properly calling the update and render methods.
@@ -193,14 +179,7 @@ var Engine = (function(global) {
     * there is a new high score.
      */
     function reset() {
-        //stub var until we get the DB running
-        var topTenScore = 3;
-
-        if (player.score > topTenScore) {
-            addHighScore();
-        } else {
-            win.confirm("Game Over!");
-        }
+        win.confirm("Game Over! Your score is: " + player.score + "!");
         player.score = 0;
     }
 
