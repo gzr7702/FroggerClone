@@ -2,8 +2,8 @@
 * This is the enemy class. It is used to create multiple enemies.
 */
 
-var speed = [25, 50, 75, 150, 250];
-//var enemyY = [60, 143, 225];
+var speedChoices = [25, 75, 150, 200];
+//var speedChoices = [25, 50, 75, 100, 150, 200, 250];
 var yPoint = [70, 155, 240];
 
 var Enemy = function () {
@@ -14,10 +14,9 @@ var Enemy = function () {
     this.width = 76;
     this.height = 67;
     //assign random speed
-    this.speed = speed[Math.floor(Math.random() * 5)];
+    this.speed = speedChoices[Math.floor(Math.random() * 5)];
     
     this.maxX = ctx.canvas.width;
-    //this.minX = -25;
 };
 
 Enemy.prototype.update = function (dt) {

@@ -6,10 +6,14 @@
 var Player = function () {
     this.sprite = 'images/char-boy.png';
     this.score = 0;
-    this.x = 300;
+    this.x = 205;
     this.y = 325;
+
+    // dimensions of the character
     this.width = 66;
     this.height = 77;
+
+    //boundaries for the player
     this.maxX = ctx.canvas.width - 125;
     this.maxY = ctx.canvas.height - 300;
     this.minX = 100;
@@ -17,7 +21,6 @@ var Player = function () {
 };
 
 Player.prototype.update = function (dt) {
-    //this.x = this.x + (this.speed * dt);
     this.checkCollisions();
 };
 
@@ -26,7 +29,6 @@ Player.prototype.render = function () {
 };
 
 Player.prototype.handleInput = function (keyCode) {
-    console.log(this.x + ' ' + this.y)
     var moveY = 85;
     var moveX = 98;
     switch (keyCode) {
@@ -63,7 +65,6 @@ Player.prototype.checkCollisions = function () {
     if (this.y === -15) {
         // increment score and reset if the player is on the water
         this.score++;
-        console.log(this.score);
         this.reset();
     } else if (this.y > 50 || this.y < 225) {
         var self = this;
@@ -84,6 +85,6 @@ Player.prototype.checkCollisions = function () {
 };
 
 Player.prototype.reset = function () {
-    //this.x = 300;
+    this.x = 205;
     this.y = 325;
 };

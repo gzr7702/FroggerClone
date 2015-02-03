@@ -3,12 +3,6 @@
  * draws the initial game board on the screen, and then calls the update and
  * render methods on your player and enemy objects (defined in your app.js).
  *
- * A game engine works by drawing the entire game screen over and over, kind of
- * like a flipbook you may have created as a kid. When your player moves across
- * the screen, it may look like just that image/character is moving or being
- * drawn but that is not the case. What's really happening is the entire "scene"
- * is being drawn over and over, presenting the illusion of animation.
- *
  * This engine is available globally via the Engine variable and it also makes
  * the canvas' context (ctx) object globally available to make writing app.js
  * a little simpler to work with.
@@ -23,6 +17,7 @@ var Engine = (function(global) {
         win = global.window,
         canvas = doc.createElement('canvas'),
         ctx = canvas.getContext('2d'),
+        gameDuration = 20000,
         lastTime;
 
 
@@ -69,17 +64,12 @@ var Engine = (function(global) {
     function init() {
         lastTime = Date.now();
         main();
-        win.setInterval(reset, 10000);
+        //set the timer for the game
+        win.setInterval(reset, gameDuration);
     }
 
     /* This function is called by main (our game loop) and itself calls all
-     * of the functions which may need to update entity's data. Based on how
-     * you implement your collision detection (when two entities occupy the
-     * same space, for instance when your character should die), you may find
-     * the need to add an additional function call here. For now, we've left
-     * it commented out - you may or may not want to implement this
-     * functionality this way (you could just implement collision detection
-     * on the entities themselves within your app.js file).
+     * of the functions which may need to update entity's data. 
      */
     function update(dt) {
         updateEntities(dt);
@@ -129,13 +119,6 @@ var Engine = (function(global) {
          */
         for (row = 0; row < numRows; row++) {
             for (col = 0; col < numCols; col++) {
-                /* The drawImage function of the canvas' context element
-                 * requires 3 parameters: the image to draw, the x coordinate
-                 * to start drawing and the y coordinate to start drawing.
-                 * We're using our Resources helpers to refer to our images
-                 * so that we get the benefits of caching these images, since
-                 * we're using them over and over.
-                 */
                 ctx.drawImage(Resources.get(rowImages[row]), col * 101, row * 83);
             }
         }
@@ -158,6 +141,7 @@ var Engine = (function(global) {
     }
 
     /*Display the list of high scores w/initials
+    * Not used until we hook up a DB
     */
     function displayScores() {
         var scoreList = '';
@@ -168,6 +152,7 @@ var Engine = (function(global) {
     }
 
     /* Add high score and initials to the DB
+    * Not used until we hook up a DB
     */
     function addHighScore() {
         var inits = win.prompt("You are one of the top ten scorers! Please enter your initiials.");
@@ -179,8 +164,12 @@ var Engine = (function(global) {
     * there is a new high score.
      */
     function reset() {
+        // This is where we will check for high scores and put them in 
+        // the DB if applicable.
+        // For now, we just display the user's score
         win.confirm("Game Over! Your score is: " + player.score + "!");
         player.score = 0;
+        player.reset();
     }
 
 
